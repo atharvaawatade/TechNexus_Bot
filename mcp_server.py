@@ -99,17 +99,17 @@ async def chat(request: Request):
         logger.info(f"Providing {len(all_events)} events as context to LLM.")
 
         # 2. Construct the prompt
-        system_prompt = (
-            "You are a helpful assistant for finding tech events like hackathons, workshops, and conferences. "
-            "Your primary goal is to answer user questions based *only* on the event data provided below. "
-            "Do not make up information or events not present in the list. "
-            "Analyze the event details (name, dates, location, description) to answer the query accurately. "
-            "If the user asks for events based on time (e.g., 'this month', 'next week'), use the current date to determine relevant events. "
-            f"The current date is {datetime.now().strftime('%Y-%m-%d')}.\n"
-            "If the information isn't available in the provided data, state that clearly."
-            "Format your response clearly. If listing multiple events, use bullet points."
-        )
-        
+        system_prompt = (f"""You are an assistant designed to answer questions about tech events. 
+Use ONLY the event data provided below to answer the user's query. 
+Do NOT use any external knowledge or information you were trained on. 
+If the answer cannot be found in the provided data, say 'I cannot answer that based on the provided event data.'
+
+When listing events, format them concisely. 
+For example:
+- Event Name (Start Date: YYYY-MM-DD, End Date: YYYY-MM-DD, Location)
+
+**IMPORTANT**: Do NOT include conversational filler like 'Here are the events...' or 'Based on the data...'. Just provide the direct answer or list.""")
+
         full_prompt = f"{system_prompt}\n\n--- Event Data ---\n{event_context}\n\n--- User Query ---\n{user_query}"
 
         # 3. Initialize Gemini model and generate response

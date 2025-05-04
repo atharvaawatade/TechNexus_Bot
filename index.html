@@ -173,11 +173,13 @@
             border-radius: var(--border-radius);
             padding: 1.5rem;
             box-shadow: var(--box-shadow);
-            transition: transform 0.2s ease;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
 
         .event-card:hover {
             transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         .event-card h3 {
@@ -224,19 +226,50 @@
 
         #loading, #error-message {
             text-align: center;
-            font-size: 1.1rem;
-            color: var(--secondary-color);
-            padding: 2rem;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 3rem;
             padding: 1rem;
             color: var(--secondary-color);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
         }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) { /* Adjust breakpoint for wider tablets */
+            .container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .chat-sidebar {
+                position: static; /* Remove sticky positioning */
+                width: 100%; /* Take full width */
+                margin-top: 1.5rem; /* Add space when stacked */
+            }
+        }
+
+        @media (max-width: 768px) {
+             h1 { font-size: 1.8rem; }
+             .search-container input,
+             .search-container button {
+                 font-size: 0.9rem;
+                 padding: 0.7rem;
+             }
+             #chat-history {
+                 height: 300px; /* Reduce chat height */
+             }
+        }
+
+         @media (max-width: 480px) {
+             h1 { font-size: 1.5rem; }
+             .container { padding: 0 0.5rem; margin: 1rem auto; }
+             .event-card { padding: 0.8rem; }
+             .event-card h3 { font-size: 1.1rem; }
+             .event-card p, .event-card span { font-size: 0.85rem; }
+             .event-card .register-button { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+             .chat-sidebar { padding: 1rem; }
+             #chat-input, #chat-send-button { font-size: 0.85rem; padding: 0.6rem; }
+             .user-message, .assistant-message {
+                 margin-left: 5%;
+                 margin-right: 5%; /* Reduce side margins for messages */
+             }
+         }
     </style>
 </head>
 <body>
