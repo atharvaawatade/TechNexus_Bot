@@ -1,7 +1,8 @@
 import os
 import logging
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from database import get_events, search_events
 from models.event import Event
@@ -25,6 +26,9 @@ app.add_middleware(
     allow_methods=["*"], # Allows all methods (GET, POST, etc.)
     allow_headers=["*"], # Allows all headers
 )
+
+# Mount static files directory
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -67,10 +71,11 @@ def format_events_for_llm(events: list[Event]) -> str:
 # --- API Endpoints --- #
 
 # Serve index.html at the root URL
-@app.get("/", response_class=FileResponse)
+@app.get("/", response_class=HTMLResponse)
 async def read_index():
-    # Ensure index.html is in the same directory or provide correct path
-    return "index.html"
+    with open("index.html", "r") as f:
+        html_content = f.read()
+    return html_content
 
 # Health check endpoint
 @app.get("/health")

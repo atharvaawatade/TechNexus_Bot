@@ -1,0 +1,80 @@
+/* main.css - Core styles and variables */
+
+:root {
+    /* Color Scheme - Dark Theme with Purple Accents */
+    --primary-color: #8a2be2; /* Vibrant purple */
+    --primary-dark: #6a1cb7;
+    --secondary-color: #a56fdd; /* Lighter purple */
+    --background-color: #121212; /* Dark background */
+    --card-background: #1e1e1e; /* Slightly lighter dark */
+    --text-color: #e0e0e0; /* Light text for dark background */
+    --border-color: #333333;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --border-radius: 0.5rem;
+    --accent-color: #ff7b25; /* Orange accent for contrast */
+    --gradient-start: #8a2be2;
+    --gradient-end: #4a0082;
+    --bubble-color: rgba(138, 43, 226, 0.1); /* Very transparent purple */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+button, input {
+    font-family: inherit;
+}
+
+/* Header styles */
+header {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    padding: 1.5rem 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+    background-color: rgba(0, 0, 0, 0.2);
+}

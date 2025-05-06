@@ -4,484 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechNexus Bot</title>
-    <style>
-        :root {
-            --primary-color: #007bff;
-            --secondary-color: #6c757d;
-            --background-color: #f8f9fa;
-            --card-background: #ffffff;
-            --text-color: #333;
-            --border-color: #dee2e6;
-            --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            --border-radius: 0.25rem;
-            --chat-background: #e9ecef;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1140px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: flex;
-            gap: 2rem;
-        }
-
-        .main-content {
-            flex: 2;
-        }
-
-        .chat-sidebar {
-            flex: 1;
-            background-color: var(--card-background);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--box-shadow);
-            height: fit-content;
-            position: sticky;
-            top: 2rem;
-        }
-
-        .chat-sidebar h2 {
-            margin-top: 0;
-            color: var(--primary-color);
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        #chat-history {
-            height: 400px;
-            overflow-y: auto;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1rem;
-            margin-bottom: 1rem;
-            background-color: var(--background-color);
-        }
-
-        .chat-message {
-            margin-bottom: 0.75rem;
-            padding: 0.5rem 0.75rem;
-            border-radius: var(--border-radius);
-            line-height: 1.4;
-        }
-
-        .user-message {
-            background-color: #cfe2ff;
-            text-align: right;
-            margin-left: 20%;
-        }
-
-        .assistant-message {
-            background-color: var(--background-color);
-            border: 1px solid var(--border-color);
-            margin-right: 20%;
-            white-space: pre-wrap;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        #chat-input {
-            flex-grow: 1;
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            font-size: 0.9rem;
-        }
-
-        #chat-send-button {
-            padding: 0.75rem 1rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.2s ease;
-        }
-
-        #chat-send-button:hover {
-            background-color: #0056b3;
-        }
-
-        #chat-send-button:disabled {
-            background-color: var(--secondary-color);
-            cursor: not-allowed;
-        }
-
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 0;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        .search-container {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-        }
-
-        #search-input {
-            flex-grow: 1;
-            padding: 0.75rem;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-        }
-
-        #search-button {
-            padding: 0.75rem 1.5rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.2s ease;
-        }
-
-        #search-button:hover {
-            background-color: #0056b3;
-        }
-
-        #events-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .event-card {
-            background-color: var(--card-background);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            box-shadow: var(--box-shadow);
-            margin-bottom: 1.5rem;
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-
-        .event-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .event-card h3 {
-            margin-top: 0;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-
-        .event-card p {
-            margin-bottom: 0.5rem;
-            color: var(--secondary-color);
-            font-size: 0.9rem;
-        }
-
-        .event-card .dates, .event-card .location {
-            font-weight: bold;
-        }
-
-        .event-card .description {
-            color: var(--text-color);
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-        }
-
-        .event-card .register-button {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            text-align: center;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .event-card .register-button:hover {
-            background-color: #0056b3;
-            text-decoration: none; /* Ensure no underline on hover */
-        }
-
-        #loading, #error-message {
-            text-align: center;
-            padding: 1rem;
-            color: var(--secondary-color);
-        }
-
-        /* --- Responsive Design --- */
-        @media (max-width: 992px) { /* Adjust breakpoint for wider tablets */
-            .container {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .chat-sidebar {
-                position: static; /* Remove sticky positioning */
-                width: 100%; /* Take full width */
-                margin-top: 1.5rem; /* Add space when stacked */
-            }
-        }
-
-        @media (max-width: 768px) {
-             h1 { font-size: 1.8rem; }
-             .search-container input,
-             .search-container button {
-                 font-size: 0.9rem;
-                 padding: 0.7rem;
-             }
-             #chat-history {
-                 height: 300px; /* Reduce chat height */
-             }
-        }
-
-         @media (max-width: 480px) {
-             h1 { font-size: 1.5rem; }
-             .container { padding: 0 0.5rem; margin: 1rem auto; }
-             .event-card { padding: 0.8rem; }
-             .event-card h3 { font-size: 1.1rem; }
-             .event-card p, .event-card span { font-size: 0.85rem; }
-             .event-card .register-button { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
-             .chat-sidebar { padding: 1rem; }
-             #chat-input, #chat-send-button { font-size: 0.85rem; padding: 0.6rem; }
-             .user-message, .assistant-message {
-                 margin-left: 5%;
-                 margin-right: 5%; /* Reduce side margins for messages */
-             }
-         }
-    </style>
+    <!-- External CSS files -->
+    <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/animations.css">
+    <link rel="stylesheet" href="/static/css/responsive.css">
 </head>
 <body>
+    <!-- Floating bubbles background -->
+    <div class="bubbles" id="bubbles"></div>
+
     <header>
+        <!-- 3D rotating cube logo -->
+        <div class="logo-container">
+            <div class="cube">
+                <div class="cube-face front">T</div>
+                <div class="cube-face back">N</div>
+                <div class="cube-face right">B</div>
+                <div class="cube-face left">H</div>
+                <div class="cube-face top">A</div>
+                <div class="cube-face bottom">I</div>
+            </div>
+        </div>
         <h1>TechNexus Bot</h1>
     </header>
 
     <div class="container">
-        <div class="main-content">
+        <!-- Chat section at the top -->
+        <section class="chat-section">
+            <h2>Ask About Tech Events</h2>
+            <div id="chat-history"></div>
+            <div id="chat-input-area">
+                <input type="text" id="chat-input" placeholder="e.g., 'Hackathons in May'">
+                <button id="chat-send-button" class="pulse">Send</button>
+            </div>
+            <div id="chat-status" style="font-size: 0.8rem; color: var(--text-color); margin-top: 0.5rem; text-align: center;"></div>
+        </section>
+
+        <!-- Events section -->
+        <section class="events-section">
+            <h2>Upcoming Events</h2>
             <div class="search-container">
                 <input type="text" id="search-input" placeholder="Search events by keyword...">
-                <button id="search-button">Search</button>
+                <button id="search-button" class="pulse">Search</button>
             </div>
 
             <div id="loading">Loading events...</div>
             <div id="error-message" style="display: none;"></div>
             <div id="events-list"></div>
-        </div>
-
-        <aside class="chat-sidebar">
-            <h2>Ask About Events</h2>
-            <div id="chat-history"></div>
-            <div id="chat-input-area">
-                <input type="text" id="chat-input" placeholder="e.g., 'Hackathons in May'">
-                <button id="chat-send-button">Send</button>
-            </div>
-            <div id="chat-status" style="font-size: 0.8rem; color: var(--secondary-color); margin-top: 0.5rem; text-align: center;"></div>
-        </aside>
+        </section>
     </div>
 
     <footer>
-        <p>Event data sourced via API.</p>
+        <p>Event data sourced via API. © 2025 TechNexus Bot</p>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const eventsList = document.getElementById('events-list');
-            const loadingIndicator = document.getElementById('loading');
-            const errorMessage = document.getElementById('error-message');
-            const searchInput = document.getElementById('search-input');
-            const searchButton = document.getElementById('search-button');
-
-            // Chat elements
-            const chatHistory = document.getElementById('chat-history');
-            const chatInput = document.getElementById('chat-input');
-            const chatSendButton = document.getElementById('chat-send-button');
-            const chatStatus = document.getElementById('chat-status');
-
-            // Function to format dates
-            const formatDate = (isoString) => {
-                if (!isoString) return 'N/A';
-                try {
-                    return new Date(isoString).toLocaleDateString(undefined, {
-                        year: 'numeric', month: 'short', day: 'numeric'
-                    });
-                } catch (e) {
-                    console.error("Error formatting date:", isoString, e);
-                    return 'Invalid Date';
-                }
-            };
-
-            // Function to display events
-            const displayEvents = (events) => {
-                eventsList.innerHTML = ''; // Clear previous results
-                errorMessage.style.display = 'none';
-                loadingIndicator.style.display = 'none';
-
-                if (!events || events.length === 0) {
-                    errorMessage.textContent = 'No events found.';
-                    errorMessage.style.display = 'block';
-                    return;
-                }
-
-                events.forEach(event => {
-                    const card = document.createElement('div');
-                    card.className = 'event-card';
-
-                    const title = document.createElement('h3');
-                    title.textContent = event.name || 'Unnamed Event';
-
-                    const dates = document.createElement('p');
-                    dates.className = 'dates';
-                    dates.textContent = `Dates: ${formatDate(event.start_date)} - ${formatDate(event.end_date)}`;
-
-                    const location = document.createElement('p');
-                    location.className = 'location';
-                    location.textContent = `Location: ${event.location || 'N/A'}`;
-
-                    const description = document.createElement('p');
-                    description.className = 'description';
-                    description.textContent = event.description || 'No description available.';
-
-                    const link = document.createElement('a');
-                    link.href = event.registration_link || '#';
-                    link.textContent = 'View Event / Register';
-                    link.target = '_blank'; // Open in new tab
-                    link.rel = 'noopener noreferrer';
-                    link.className = 'register-button'; // Add class for button styling
-
-                    card.appendChild(title);
-                    card.appendChild(dates);
-                    card.appendChild(location);
-                    card.appendChild(description);
-                    card.appendChild(link);
-
-                    eventsList.appendChild(card);
-                });
-            };
-
-            // Function to fetch events
-            const fetchEvents = async (url) => {
-                loadingIndicator.style.display = 'block';
-                errorMessage.style.display = 'none';
-                eventsList.innerHTML = '';
-
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    const data = await response.json();
-                    if (data.error) {
-                        throw new Error(`API Error: ${data.error}`);
-                    }
-                    displayEvents(data);
-                } catch (error) {
-                    console.error('Failed to fetch events:', error);
-                    loadingIndicator.style.display = 'none';
-                    errorMessage.textContent = `Failed to load events: ${error.message}`;
-                    errorMessage.style.display = 'block';
-                }
-            };
-
-            // --- Chat Functions ---
-            const addChatMessage = (message, sender) => {
-                const messageDiv = document.createElement('div');
-                messageDiv.classList.add('chat-message', `${sender}-message`);
-                messageDiv.textContent = message;
-                chatHistory.appendChild(messageDiv);
-                // Scroll to bottom
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-            };
-
-            const sendChatMessage = async () => {
-                const query = chatInput.value.trim();
-                if (!query) return;
-
-                addChatMessage(query, 'user');
-                chatInput.value = ''; // Clear input
-                chatSendButton.disabled = true;
-                chatStatus.textContent = 'Thinking...';
-
-                try {
-                    const response = await fetch('/chat', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ query }),
-                    });
-
-                    const data = await response.json();
-
-                    if (!response.ok) {
-                        // Handle HTTP errors (like 503, 500, 400) from FastAPI
-                        throw new Error(data.detail || `HTTP error ${response.status}`);
-                    }
-
-                    if (data.response) {
-                        addChatMessage(data.response, 'assistant');
-                    } else {
-                        throw new Error('Received empty response from server.');
-                    }
-
-                } catch (error) {
-                    console.error('Chat error:', error);
-                    addChatMessage(`Error: ${error.message}`, 'assistant');
-                } finally {
-                    chatSendButton.disabled = false;
-                    chatStatus.textContent = ''; // Clear status
-                }
-            };
-
-            chatSendButton.addEventListener('click', sendChatMessage);
-            chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    sendChatMessage();
-                }
-            });
-            // --- End Chat Functions ---
-
-            // Event listener for search
-            const performSearch = () => {
-                const keyword = searchInput.value.trim();
-                if (keyword) {
-                    fetchEvents(`/api/search?keyword=${encodeURIComponent(keyword)}`);
-                } else {
-                    // If search is cleared, fetch all events again
-                    fetchEvents('/api/events');
-                }
-            };
-
-            searchButton.addEventListener('click', performSearch);
-            searchInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    performSearch();
-                }
-            });
-
-            // Initial load of all events
-            fetchEvents('/api/events');
-        });
-    </script>
+    <!-- External JavaScript -->
+    <script src="/static/js/main.js"></script>
 </body>
 </html>

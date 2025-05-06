@@ -1,0 +1,146 @@
+/* responsive.css - Responsive design for different screen sizes */
+
+/* Large devices (desktops, less than 1200px) */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 992px) {
+    .container {
+        max-width: 720px;
+    }
+    
+    .events-section h2, .chat-section h2 {
+        font-size: 1.4rem;
+    }
+    
+    #events-list {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    .logo-container {
+        top: 5px;
+        left: 10px;
+        width: 30px;
+        height: 30px;
+    }
+    
+    .cube-face {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 768px) {
+    .container {
+        max-width: 540px;
+        padding: 1rem;
+    }
+    
+    header h1 { 
+        font-size: 1.8rem; 
+    }
+    
+    .search-container {
+        flex-direction: column;
+    }
+    
+    .search-container input,
+    .search-container button {
+        width: 100%;
+        padding: 0.8rem;
+    }
+    
+    #chat-history {
+        height: 180px;
+    }
+    
+    .chat-message {
+        max-width: 90%;
+    }
+    
+    .event-card {
+        padding: 1.2rem;
+    }
+    
+    .event-card h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 576px) {
+    .container { 
+        padding: 0.75rem;
+    }
+    
+    header h1 { 
+        font-size: 1.5rem; 
+    }
+    
+    .logo-container {
+        display: none; /* Hide logo on very small screens */
+    }
+    
+    .chat-section, .events-section {
+        padding: 1rem;
+    }
+    
+    #chat-history {
+        height: 150px;
+        padding: 0.75rem;
+    }
+    
+    .chat-message {
+        padding: 0.6rem 0.8rem;
+        margin-bottom: 0.5rem;
+        max-width: 95%;
+    }
+    
+    #chat-input, #chat-send-button {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+    
+    .event-card {
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .event-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .event-card .description {
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
+    }
+    
+    .event-card .register-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Very small devices (small phones, less than 400px) */
+@media (max-width: 400px) {
+    header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .chat-section h2, .events-section h2 {
+        font-size: 1.2rem;
+    }
+    
+    #events-list {
+        grid-template-columns: 1fr; /* Single column for very small screens */
+    }
+    
+    .event-card .dates, .event-card .location {
+        font-size: 0.8rem;
+    }
+}
